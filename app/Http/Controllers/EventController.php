@@ -13,7 +13,10 @@ class EventController extends Controller
 {
     public function index()
     {
+        $today = Carbon::today();
+
         $events = DB::table('events')
+        ->whereDate('start_date', '>=', $today)
         ->orderBy('start_date', 'asc')
         ->paginate(10);
 
@@ -27,7 +30,7 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
-        $check = EventService::chechEventDuplication(
+        $check = EventService::checkEventDuplication(
             $request['event_date'], $request['start_time'], $request['end_time']);
 
         if($check){
@@ -106,12 +109,18 @@ class EventController extends Controller
         return to_route('events.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
+    public function past()
+    {
+        $today = Carbon::today();
+        $events = DB::table('events')
+        ->whereDate('start_date', '<', $today)
+        ->orderBy('start_date', 'desc')
+        ->paginate(10);
+
+        return view('manager.events.past', compact('events'));
+    }
+
+
     public function destroy(Event $event)
     {
         //
