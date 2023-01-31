@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <section class="text-gray-600 body-font">
                     <div class="container px-5 py-4 mx-auto">
-                        
+
                         @if (session('status'))
                             <div class="mb-4 font-medium text-sm text-green-600">
                                 {{ session('status') }}
@@ -49,7 +49,7 @@
                                 <tbody>
                                     @foreach ($events as $event)
                                         <tr>
-                                            <td class="px-4 py-3">{{ $event->name }}</td>
+                                            <td class="text-blue-500 px-4 py-3"><a href="{{ route('events.show', ['event' => $event->id ]) }}">{{ $event->name }}</a></td>
                                             <td class="px-4 py-3">{{ $event->start_date }}</td>
                                             <td class="px-4 py-3">{{ $event->end_date }}</td>
                                             <td class="px-4 py-3">のちほど</td>
