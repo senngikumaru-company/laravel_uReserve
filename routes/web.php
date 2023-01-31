@@ -43,10 +43,6 @@ Route::middleware('can:user-higher')
     });
 });
 
-
-
-
-
 Route::controller(LivewireTestController::class)
 ->prefix('livewire-test')->name('livewire-test.')->group(function(){
     Route::get('index', 'index')->name('index');
